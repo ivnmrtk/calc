@@ -12,56 +12,64 @@ Window {
     property string op
     width: 400
     height: 400
-    property string text: "Welcome"
+    property string displayedText: "Посчитаем?"
 
     function addNum(aNum) {
-        if (text === "Welcome" || text === "0" ||text == op || check == true){
-            text = aNum
+        console.log("text = " +displayedText + ", arg1 = " + arg1 + ", arg2 = " + arg2 + ", op = " + op + ", check = "+ check)
+        if (displayedText === "Посчитаем?" || displayedText === "0" ||displayedText == op || check == true){
+            displayedText = aNum
             check = false
         } else {
-            text += aNum
+            displayedText += aNum
         }
         if (op != ""){
-            arg2 = text
+            arg2 = displayedText
         } else {
-            arg1 = text
+            arg1 = displayedText
         }
+        console.log("text = " +displayedText + ", arg1 = " + arg1 + ", arg2 = " + arg2 + ", op = " + op + ", check = "+ check)
     }
     function addAction(aAction) {
+        console.log("text = " +displayedText + ", arg1 = " + arg1 + ", arg2 = " + arg2 + ", op = " + op + ", check = "+ check)
         if (aAction === "C") {
             arg1 = 0
             arg2 = 0
             op = ""
             check = false
-            text = "0"
+            displayedText = "0"
         } else {
-            if (arg1 != 0 && arg2 != 0 && op === aAction){
+            if (arg1 != 0 && arg2 != 0){
                 calc("=")
+                op = aAction
+                displayedText = op
             } else {
                 op = aAction
-                text = op
+                displayedText = op
             }
         }
+        console.log("text = " +displayedText + ", arg1 = " + arg1 + ", arg2 = " + arg2 + ", op = " + op + ", check = "+ check)
     }
     function calc(aOper) {
-        if(main.op != "") {
-            switch (main.op) {
+        console.log("text = " +displayedText + ", arg1 = " + arg1 + ", arg2 = " + arg2 + ", op = " + op + ", check = "+ check)
+        if(op != "") {
+            switch (op) {
             case "+":
-                main.arg1 = main.arg1 + main.arg2
+                arg1 = arg1 + arg2
                 break
             case "-":
-                main.arg1 = main.arg1 - main.arg2
+                arg1 = arg1 - arg2
                 break
             case "*":
-                main.arg1 = main.arg1 * main.arg2
+                arg1 = arg1 * arg2
                 break
             case "/":
-                main.arg1 = main.arg1 / main.arg2
+                arg1 = arg1 / arg2
                 break
             }
-            main.text = main.arg1
-            main.check = true
+            displayedText = arg1
+            check = true
         }
+        console.log("text = " +displayedText + ", arg1 = " + arg1 + ", arg2 = " + arg2 + ", op = " + op + ", check = "+ check)
     }
 
     id: main
@@ -75,11 +83,11 @@ Window {
             Layout.row: 1
             Layout.column: 1
             Layout.columnSpan: 5
-            text: main.text
+            text: main.displayedText
             font.pixelSize: 30
             anchors.right: parent.right
             padding: 20
-            color: "Orange";
+            color: "Blue";
         }
         Button {
             Layout.row: 2
